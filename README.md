@@ -4,8 +4,8 @@ Note|Description
 :----|:----
 Initial macOS Support|macOS 10.13, High Sierra.
 
-- Opencore version: 0.7.1
-- Release date: 22/07/2021
+- Opencore version: 0.7.2
+- Release date: 03/08/2021
 
 # Basic Steps
 
@@ -123,6 +123,13 @@ MacPro7,1|AMD RX Polaris and newer.<br>Note that MacPro7,1 is exclusive to macOS
 MacPro6,1|AMD R5/R7/R9 and older.
 iMac14,2|Nvidia Kepler and newer.<br>Note: iMac14,2 is only supported to macOS 10.8-10.15, for macOS 11, Big Sur and newer please use MacPro7,1.
 
+# Catalina and older versions of macOS
+
+- Please configure `MinDate` and `MinVersion` in UEFI > APFS to `-1`;
+- Please configure `SecureBootModel` in Misc > Security to `j137`;
+
+\* *Without above settings, macOS will not be able to boot.*
+
 # Special notes
 
 - USB port mapping is **REQUIRED**.
@@ -134,6 +141,32 @@ iMac14,2|Nvidia Kepler and newer.<br>Note: iMac14,2 is only supported to macOS 1
 	- Newer BIOS versions of X570 also require this **`DISABLE`**;
 	- X470 and B450 with late 2020 BIOS updates also require this **`DISABLE`**.
 - **`DevirtualiseMmio`** - TRx40 users please **`ENABLE`** this flag.
+
+## Special notes - Opencore 0.7.1+
+
+Find the three `algrey - Force cpuid_cores_per_package` patches and alter the `Replace` value only - `config.plist`.
+
+Changing `B8000000 0000`/`BA000000 0000`/`BA000000 0090`* to `B8 <CoreCount> 0000 0000`/`BA <CoreCount> 0000 0000`/`BA <CoreCount> 0000 0090`* substituting `<CoreCount>` with the hexadeciamal value matching your physical core count.
+
+**Note:** *The three different values reflect the patch for different versions of macOS. Be sure to change all three if you boot macOS 10.13 to macOS 12*
+
+See the table below for the values matching your CPU Core Count.
+
+| CoreCount | Hexadecimal|
+|--------|---------|
+|   6 Core  | `06` |
+|   8 Core  | `08` |
+|   12 Core | `0C` |
+|   16 Core | `10` |
+|   32 Core | `20` |
+
+So for example a 6 Core 5600X Replace value would result in these replace values, `B8 06 0000 0000`/`BA 06 0000 0000`/`BA 06 0000 0090`
+
+**Note:** *MacOS Monterey installation requires `Misc -> Security -> SecureBootModel` to be disabled in the config.<br />Also TPM needs to be disabled in the BIOS. Both can be enabled after install.*
+
+## TRX40 Systems
+
+Disabling the `mtrr_update_action - fix PAT` patch has shown an improvement in GPU performance on some systems that have tested. If you wish to test this it is recommended to do so on a USB with OpenCore to ensure it works first. There may be issues with different motherboard/GPU combos that we aren't aware of. Proceed at your own risk.
 
 ### General Purpose `boot-args`
 
