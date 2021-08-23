@@ -67,7 +67,7 @@ Kext|Description
 :----|:----
 [NVMeFix](https://github.com/acidanthera/NVMeFix/releases)|Used for fixing power management and initialization on non-Apple NVMe.
 [SATA-Unsupported](https://github.com/khronokernel/Legacy-Kexts/blob/master/Injectors/Zip/SATA-unsupported.kext.zip)|Adds support for a large variety of SATA controllers, mainly relevant for laptops which have issues seeing the SATA drive in macOS.<br>We recommend testing without this first.
-[AppleMCEReporterDisabler](https://github.com/acidanthera/bugtracker/files/3703498/AppleMCEReporterDisabler.kext.zip)|Useful starting with Catalina to disable the AppleMCEReporter kext which will cause kernel panics on AMD CPUs.<br>Recommended for dual-socket systems (ie. Intel Xeons).
+[RestrictEvents](https://github.com/acidanthera/RestrictEvents/releases)|Fixing SMBIOS MacPro7,1 Memory Errors.
 
 # ACPI Tables - AMD
 
@@ -155,10 +155,12 @@ See the table below for the values matching your CPU Core Count.
 
 | CoreCount | Hexadecimal|
 |--------|---------|
+|   4 Core  | `04` |
 |   6 Core  | `06` |
 |   8 Core  | `08` |
 |   12 Core | `0C` |
 |   16 Core | `10` |
+|   24 Core | `18` |
 |   32 Core | `20` |
 
 So for example a 6 Core 5600X Replace value would result in these replace values, `B8 06 0000 0000`/`BA 06 0000 0000`/`BA 06 0000 0090`
@@ -208,3 +210,5 @@ nvda_drv_vrl=1|Used for enabling Nvidia's Web Drivers on Maxwell and Pascal card
 https://dortania.github.io/OpenCore-Install-Guide/AMD/zen.html
 <br>
 https://dortania.github.io/Getting-Started-With-ACPI/
+<br>
+https://github.com/AMD-OSX/AMD_Vanilla
