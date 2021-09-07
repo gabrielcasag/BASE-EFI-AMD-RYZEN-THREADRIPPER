@@ -4,16 +4,16 @@ Note|Description
 :----|:----
 Initial macOS Support|macOS 10.13, High Sierra.
 
-- Opencore version: 0.7.2
-- Release date: 03/08/2021
+- Opencore version: 0.7.3
+- Release date: 06/09/2021
 
 # Basic Steps
 
 1. [Download](https://github.com/luchina-gabriel/BASE-EFI-AMD-RYZEN-THREADRIPPER/releases) the latest release;
-2. Includes additional kexts (for ethernet, audio, etc);
-3. Include the necessary ACPI patches (.aml);
+2. Includes **additional** kexts (for ethernet, audio, etc);
+3. Include the **necessary** ACPI patches (.aml);
 4. Review the special notes;
-5. Generate and complete your SMBIOS infos;
+5. Generate and complete your SMBIOS infos - **ALWAYS**;
 6. Adjust your BIOS;
 7. Install macOS and enjoy :)
 
