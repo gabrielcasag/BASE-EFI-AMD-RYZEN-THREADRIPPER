@@ -1,4 +1,4 @@
-# BASE EFI AMD - Ryzen and Threadripper (1XXX, 2XXX, 3XXX, 4XXX, 5XXX)
+# BASE EFI AMD - Ryzen and Threadripper (1XXX, 2XXX, 3XXX, 4XXX, 5XXX) and Athlon 2xxGE
 
 Note|Description
 :----|:----
