@@ -213,3 +213,6 @@ https://dortania.github.io/OpenCore-Install-Guide/AMD/zen.html
 https://dortania.github.io/Getting-Started-With-ACPI/
 <br>
 https://github.com/AMD-OSX/AMD_Vanilla
+
+## Discord - Universo Hackintosh
+- [Access Discord](https://discord.universohackintosh.com.br)
