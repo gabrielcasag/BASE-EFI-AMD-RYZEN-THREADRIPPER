@@ -4,8 +4,8 @@ Note|Description
 :----|:----
 Initial macOS Support|macOS 10.13, High Sierra.
 
-- Opencore version: 0.8.6
-- Release date: 07/11/2022
+- Opencore version: 0.8.7
+- Release date: 06/12/2022 (late a day)
 
 # Basic Steps
 
@@ -67,7 +67,6 @@ Kext|Description
 :----|:----
 [NVMeFix](https://github.com/acidanthera/NVMeFix/releases)|Used for fixing power management and initialization on non-Apple NVMe.
 [SATA-Unsupported](https://github.com/khronokernel/Legacy-Kexts/blob/master/Injectors/Zip/SATA-unsupported.kext.zip)|Adds support for a large variety of SATA controllers, mainly relevant for laptops which have issues seeing the SATA drive in macOS.<br>We recommend testing without this first.
-[RestrictEvents](https://github.com/acidanthera/RestrictEvents/releases)|Fixing SMBIOS MacPro7,1 Memory Errors.
 [RestrictEvents](https://github.com/acidanthera/RestrictEvents/releases)|Better experience with unsupported processors like AMD, Disable MacPro7,1 memory warnings and provide upgrade to macOS Monterey via Software Updates when available.
 
 # ACPI Tables - AMD
