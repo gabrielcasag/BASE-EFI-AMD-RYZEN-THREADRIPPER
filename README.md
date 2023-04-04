@@ -4,8 +4,8 @@ Note|Description
 :----|:----
 Initial macOS Support|macOS 10.13, High Sierra.
 
-- Opencore version: 0.9.0
-- Release date: 06/03/2023
+- Opencore version: 0.9.1
+- Release date: 03/04/2023
 
 # Basic Steps
 
@@ -53,6 +53,7 @@ Kext|Description
 [RealtekRTL8111.kext](https://github.com/Mieze/RTL8111_driver_for_OS_X/releases)|For Realtek's Gigabit Ethernet.<br>Sometimes the latest version of the kext might not work properly with your Ethernet. If you see this issue, try older versions.
 [LucyRTL8125Ethernet.kext](https://www.insanelymac.com/forum/files/file/1004-lucyrtl8125ethernet/)|For Realtek's 2.5Gb Ethernet.
 [SmallTreeIntel82576.kext](https://github.com/khronokernel/SmallTree-I211-AT-patch/releases)| Required for I211 NICs, based off of the SmallTree kext but patched to support I211.<br>Required for most AMD boards running Intel NICs.
+[AppleIGB.kext](https://github.com/donatengit/AppleIGB/releases)|Required for I211 NICs running on macOS Monterey and above. Might have instability issues on some NICs, recommended to stay on Big Sur and use SmallTree. Requires macOS 12 and above
 
 ### WiFi and Bluetooth
 Kext|Description
@@ -143,27 +144,37 @@ iMac14,2|Nvidia Kepler and newer.<br>Note: iMac14,2 is only supported to macOS 1
 	- X470 and B450 with late 2020 BIOS updates also require this **`DISABLE`**.
 - **`DevirtualiseMmio`** - TRx40 users please **`ENABLE`** this flag.
 
-## Special notes - Opencore 0.7.1+
+## Special notes - Mapping CORES for AMD CPU
 
-Find the three `algrey - Force cpuid_cores_per_package` patches and alter the `Replace` value only - `config.plist`.
+**Note for Zen 4:** Zen 4 (Ryzen 7000) requires patching for IOPCIFamily.kext. <br>
+This patch is enabled by default. Please ensure that you've added it to your current config for Zen 4 stability. <br>
+This patch also allows MSI A520, B550, and X570 boards to boot macOS Monterey and newer. <br>
 
-Changing `B8000000 0000`/`BA000000 0000`/`BA000000 0090`* to `B8 <CoreCount> 0000 0000`/`BA <CoreCount> 0000 0000`/`BA <CoreCount> 0000 0090`* substituting `<CoreCount>` with the hexadeciamal value matching your physical core count.
+Core Count patch needs to be modified to boot your system.<br>
+Find the four `algrey - Force cpuid_cores_per_package` patches and alter the `Replace` value only.
 
-**Note:** *The three different values reflect the patch for different versions of macOS. Be sure to change all three if you boot macOS 10.13 to macOS 12*
+|   macOS Version      | Replace Value | New Value |
+|----------------------|---------------|-----------|
+| 10.13.x, 10.14.x     | B8000000 0000 | B8 < Core Count > 0000 0000 |
+| 10.15.x, 11.x        | BA000000 0000 | BA < Core Count > 0000 0000 |
+| 12.x, 13.0 to 13.2.1 | BA000000 0090 | BA < Core Count > 0000 0090 |
+| 13.3                 |  BA000000 00  | BA < Core Count > 0000 00 |
 
-See the table below for the values matching your CPU Core Count.
+From the table above substitue `< Core Count >` with the hexadecimal value matching your physical core count. <br>
+Do not use your CPU's thread count. <br>
+See the table below for the values matching your CPU core count.
 
-| CoreCount | Hexadecimal|
-|--------|---------|
-|   4 Core  | `04` |
-|   6 Core  | `06` |
-|   8 Core  | `08` |
-|   12 Core | `0C` |
-|   16 Core | `10` |
-|   24 Core | `18` |
-|   32 Core | `20` |
+| Core Count | Hexadecimal |
+|------------|-------------|
+|   4 Core   |     `04`    |
+|   6 Core   |     `06`    |
+|   8 Core   |     `08`    |
+|   12 Core  |     `0C`    |
+|   16 Core  |     `10`    |
+|   24 Core  |     `18`    |
+|   32 Core  |     `20`    |
 
-So for example a 6 Core 5600X Replace value would result in these replace values, `B8 06 0000 0000`/`BA 06 0000 0000`/`BA 06 0000 0090`
+So for example, a user with a 6-core processor should use these `Replace` values: `B8 06 0000 0000` / `BA 06 0000 0000` / `BA 06 0000 0090` / `BA 06 0000 00`
 
 **Note:** *MacOS Monterey installation requires `Misc -> Security -> SecureBootModel` to be disabled in the config.<br />Also TPM needs to be disabled in the BIOS. Both can be enabled after install.*
 
