@@ -4,8 +4,8 @@ Note|Description
 :----|:----
 Initial macOS Support|macOS 10.13, High Sierra.
 
-- Opencore version: 0.9.2
-- Release date: 08/05/2023 (delayed a week)
+- Opencore version: 0.9.3
+- Release date: 12/06/2023 (delayed a week)
 
 # Basic Steps
 
@@ -135,8 +135,7 @@ iMac14,2|Nvidia Kepler and newer.<br>Note: iMac14,2 is only supported to macOS 1
 # Special notes
 
 - USB port mapping is **REQUIRED**.
-- **`XhciPortLimit`** - Needed **`DISABLE`** if you use Big Sur 11.3+. 
-	- Please Mapping USB in macOS Catalina before install Big Sur or Newer for best results.
+- **`XhciPortLimit`** - Please `**ENABLE**` to map the USB ports
 	- You can use USBMap.command Utility - [USBMap](https://github.com/corpnewt/USBMap).
 - **`SetupVirtualMap`** in config.plist:
 	- B550, A520 and TRx40 boards should **`DISABLE`** this;
